@@ -25,9 +25,48 @@ export const handler = async (event: any): Promise<any> => {
      * This adjusting of the prompt is called "Prompt Engineering"
      * https://docs.anthropic.com/en/docs/build-with-claude/prompt-engineering/overview
      */
-    const prompt = `Summarize the following data of kubernetes clusters: ${JSON.stringify(
-      requestBody.inputData
-    )}`;
+    // const prompt = `Summarize the following data of kubernetes clusters: ${JSON.stringify(
+    //   requestBody.inputData
+    // )}`;
+    const prompt = `You are an expert Kubernetes cluster analyst.
+Your task is to analyze and summarize the provided Kubernetes cluster metrics data.
+
+Here's the data:
+${JSON.stringify(requestBody.inputData, null, 2)}
+
+Please provide a comprehensive summary of this data, including:
+
+1. Overview:
+   - Total number of clusters
+   - Total number of nodes across all clusters
+   - Total number of pods across all clusters
+
+2. Cluster Analysis:
+   - For each cluster, provide:
+     a) Cluster name
+     b) Number of nodes
+     c) Number of pods
+     d) CPU usage percentage
+     e) Memory usage percentage
+
+3. Resource Utilization:
+   - Identify the cluster with the highest CPU usage
+   - Identify the cluster with the highest memory usage
+   - Calculate and report the average CPU and memory usage across all clusters
+
+4. Scale and Performance:
+   - Rank the clusters from largest to smallest based on node count
+   - Analyze the relationship between node count and pod count
+   - Identify any clusters that might be under or over-utilized based on their metrics
+
+5. Recommendations:
+   - Suggest any potential optimizations or areas of concern based on the data
+   - Identify which clusters might need scaling up or down
+
+6. Timestamp Analysis:
+   - Comment on the timestamp of the data and its relevance
+
+Please provide your analysis in a clear, structured format using markdown for better readability.`;
 
     /**
      * NOTE: Different models expect different parameteres for the InvokeModelCommand
@@ -56,9 +95,9 @@ export const handler = async (event: any): Promise<any> => {
     const responseBody = JSON.parse(new TextDecoder().decode(response.body));
     const responseBodyText = responseBody.content[0].text;
 
-    /** 
+    /**
      * NOTE: Here is some optional code to use Meta's Llama3 Foundation Model
-     * 
+     *
      * const llama3StructuredPrompt = `
       <|begin_of_text|>
       <|start_header_id|>user<|end_header_id|>
