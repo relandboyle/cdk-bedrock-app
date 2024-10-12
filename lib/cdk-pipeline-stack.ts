@@ -18,9 +18,7 @@ export class CdkPipelineStack extends cdk.Stack {
      * Make sure to make the strings match.
      */
     const githubAccessToken = cdk.SecretValue.secretsManager("github-token");
-    const cdkDefaultAccount = cdk.SecretValue.secretsManager(
-      "cdk-default-account"
-    ).unsafeUnwrap();
+    const cdkDefaultAccount = cdk.SecretValue.secretsManager("cdk-default-account").unsafeUnwrap();
     const cdkDefaultRegion = "us-east-1";
     const githubRepo = "relandboyle/cdk-bedrock-app";
 
