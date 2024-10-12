@@ -22,7 +22,7 @@ export class CdkPipelineStack extends cdk.Stack {
       "cdk-default-account"
     ).unsafeUnwrap();
     const cdkDefaultRegion = "us-east-1";
-    const githubRepo = "Alexander-Infante/cdk-bedrock-app";
+    const githubRepo = "relandboyle/cdk-bedrock-app";
 
     /**
      * This CodePipeline does a few steps in the code below

@@ -9,3 +9,5 @@ cdk.out
 
 # Env file
 .env
+
+private/
